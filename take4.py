@@ -52,8 +52,6 @@ def _(action, state):
         return state.transform(['todos',action.payload,'state'], 'done')
 
 
-
-
 INC_COUNTER = create_action_type("INC")
 DEC_COUNTER = create_action_type("DEC")
 SET_COUNTER = create_action_type("SET")

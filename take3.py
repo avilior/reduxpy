@@ -20,23 +20,18 @@ def todo_reducer(action, state=None):
 
 @todo_reducer.register(StoreInitAction)
 def _(action, state = None):
-    return pmap({'seq' : 0, 'todos' : {} })
+    return pmap({'seq' : 0, 'todos' : pmap({}) })
 
 @todo_reducer.register(ADD_TODO)
 def _(action, state):
     # { 'id' : id, 'state': "done|active", 'todo': "" }
+
     next_seq = state['seq'] + 1
-    state.set('seq', next_seq)
+    return state.transform(
+            ['seq'], next_seq,
+            ['todos', next_seq], pmap({'id': next_seq, 'todo': action.payload, 'state': 'active'})
+    )
 
-    next_seq = state.get('seq') + 1
-
-    e = state.evolver()
-
-    e['todos'][next_seq] = {'id': next_seq, 'todo': action.payload, 'state' : 'active'}
-    e['seq'] = next_seq
-
-    m1 = e.persistent()
-    return e.persistent()
 
 
 @todo_reducer.register(DONE_TODO)
