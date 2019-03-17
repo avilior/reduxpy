@@ -18,6 +18,5 @@ Using [pyresistent](https://github.com/tobgu/pyrsistent/) for the store. Which i
 
 1 is this usefull on the server side?
 2 On server side how do we distribute across many nodes
-3 Async support
-
+3 Async support using Asyncio
 
